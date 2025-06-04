@@ -7,7 +7,7 @@
   "files": [
     "packages"
   ],
-  "homepage": "git@github.com:mingyangya/hia-ui.git",
+  "homepage": "https://mingyangya.github.io/hia-ui/",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
