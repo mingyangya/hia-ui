@@ -14,6 +14,3 @@ yarn-error.log*
 
 # dist
 dist/
-
-
-git remote add origin git@github.com:mingyangya/hia-ui.git
