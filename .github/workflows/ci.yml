@@ -16,8 +16,8 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14.17.0 # node版本
-          cache: "yarn"
-          continue-on-error: true
+          # cache: "yarn"
+          # continue-on-error: true
   
       - name: Install and Build
         run: |
