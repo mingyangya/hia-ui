@@ -1,0 +1,60 @@
+
+
+@import "./config.scss";
+// 公共动画
+%transition {
+  transition: all 0.3s ease;
+}
+
+// 单行文字超出部分显示省略号
+%row {
+  overflow:hidden;
+  word-break:keep-all;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+
+%center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*  强制换行  */
+%wrap {
+  word-wrap: break-word;
+  word-break: normal;
+}
+
+/*  强制不换行  */
+%no-wrap {
+  white-space: nowrap;
+}
+
+%flex-row {
+  display: flex;
+}
+
+%flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+/*
+ * 多行文字超出部分显示省略号
+ * autoprefixer 为 webpack 兼容方案，防止过时属性被删除
+ */
+@mixin row ($line) {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: $line;
+  /* autoprefixer: ignore next */
+  -webkit-box-orient: vertical;
+}
+
+// deep
+@mixin deep($selector) {
+	:deep(#{$selector}) {
+    @content;
+  }
+}
