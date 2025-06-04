@@ -6,6 +6,8 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v2
@@ -27,6 +29,6 @@ jobs:
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
-          GITHUB_TOKEN: ${{ secrets.secerts_token }}
+          GITHUB_TOKEN: ${{ secrets.DEPLOY_KEY  }}
           BRANCH: gh-pages
           FOLDER: docs/.vuepress/dist
