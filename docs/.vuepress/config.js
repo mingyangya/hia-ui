@@ -1,4 +1,7 @@
+const isPro =  process.env.NODE_ENV === 'production'
+
 module.exports = {
+  base: isPro ? '/hia-ui/' : '/',
   title: 'Hello VuePress',
   description: 'Just playing around',
   themeConfig: {
