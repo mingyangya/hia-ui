@@ -1,4 +1,4 @@
-const isPro =  process.env.NODE_ENV === 'production'
+const isPro = process.env.NODE_ENV === 'production'
 
 module.exports = {
   base: isPro ? '/hia-ui/' : '/',
@@ -13,11 +13,10 @@ module.exports = {
     sidebar: {
       '/guide/': [
         ['', '介绍'],     /* /foo/ */
-        ['btn', '按钮'],
+        ['button', '按钮'],
         ['alink', '链接'],
       ],
     }
-
   },
   markdown: {
     // 代码块显示行号

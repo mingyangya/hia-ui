@@ -8,7 +8,7 @@
 import { oneOf } from 'vue-types'
 
 export default {
-  name: 'HiaBtnGroup',
+  name: 'HiaButtonGroup',
   props: {
     // 水平对齐方式
     // start -> flex-start

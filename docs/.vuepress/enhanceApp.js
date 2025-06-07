@@ -1,4 +1,5 @@
 // enhanceApp.js
+import VueHighlightJS from 'vue-highlight.js'
 import ElementUI from 'element-ui'
 import HiaUi from '../../packages'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -11,6 +12,7 @@ console.log('HiaUi', HiaUi)
 export default ({
   Vue,
 }) => {
+  Vue.use(VueHighlightJS),
   Vue.use(ElementUI),
     Vue.use(HiaUi),
     Vue.prototype.$message = ElementUI.Message,

@@ -1,7 +1,9 @@
-import HiaBtnGroup from './btn-group/index.js'
+import HiaButtonGroup from './buttonGroup/index.js'
+import HiaButton from './button/index.js'
 
 const components = [
-  HiaBtnGroup,
+  HiaButton,
+  HiaButtonGroup,
 ]
 
 const install = function (Vue, opts = {}) {
@@ -23,7 +25,8 @@ if (typeof window !== 'undefined' && window.Vue) {
 // 按需导出
 
 export {
-  HiaBtnGroup
+  HiaButton,
+  HiaButtonGroup,
 }
 
 export default {
