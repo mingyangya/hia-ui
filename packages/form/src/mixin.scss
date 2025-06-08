@@ -1,0 +1,6 @@
+// 样式穿透
+@mixin deep($selector) {
+  ::v-deep #{$selector} {
+    @content;
+  }
+}

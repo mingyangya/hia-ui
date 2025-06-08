@@ -1,12 +1,13 @@
 <template>
   <el-form ref="refForm" :model="form" v-bind="{
     validateOnRuleChange: false,
-    size: size,
+    size,
     rules: formRules,
     labelWidth,
     labelPosition,
     hideRequiredAsterisk,
-    class: ['el-form', 'el-form-' + size, 'form-custom-detail']
+    class: ['el-form', 'el-form-' + size, 'form-custom-detail'],
+    ...$attrs,
   }" @submit.native.prevent>
     <componet :is="itemRowComponent" v-bind="{
       class: itemRowComponentClass,
@@ -160,7 +161,7 @@
               <!-- 自定义上传 -->
               <template v-else-if="c.type === 'custom-upload'">
                 <slot :name="`${c.type}-${c.prop}`">
-                  <CustomUpload ref="refCustomUpload"
+                  <HiaUpload ref="refHiaUpload"
                     v-bind="{ ...c, btnType: 'red', btnSize: c.size || c.btnSize || size, icon: 'el-icon-upload2', disabled: itemDisabled(c), readonly: itemReadonly(c), viewonly: itemViewonly(c), }"
                     @change="(value) => handleCustomChange(value, c.prop)">
                     <template #append>
@@ -173,7 +174,7 @@
                       </slot>
                     </template>
 
-                  </CustomUpload>
+                  </HiaUpload>
                 </slot>
               </template>
 
@@ -196,20 +197,16 @@
 <script>
 import defaultProp from './prop.js'
 import * as dictionaryApi from './dictionary.service'
-import { customValidateItem, noop, isEmpty, isUndefined, isSupportGrid } from '@utils/form.utils.js'
-
-import CustomUpload from '@/components/upload/custom-upload.vue'
+import { customValidateItem, noop, isEmpty, isUndefined, isSupportGrid } from '@packages/utils/form.util.js'
 
 export default {
-  name: 'CustomForm',
-  components: { CustomUpload },
+  name: 'HiaForm',
   model: {
     prop: 'value',
     event: 'update:value',
   },
   props: {
     ...defaultProp,
-    ...$attrs
   },
   computed: {
     slotName() {
@@ -493,10 +490,10 @@ export default {
       this.$refs.refForm.resetFields()
 
       // 处理自定义上传组件重置
-      const refCustomUpload = this.$refs.refCustomUpload
+      const refHiaUpload = this.$refs.refHiaUpload
 
-      if (refCustomUpload && refCustomUpload.length) {
-        Array.from(refCustomUpload).forEach(ele => {
+      if (refHiaUpload && refHiaUpload.length) {
+        Array.from(refHiaUpload).forEach(ele => {
           ele && ele.reset && ele.reset()
         })
       }
@@ -513,7 +510,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import url('./form.detail.scss');
+@import './mixin.scss';
+@import './form.detail.scss';
 
 .el-date-editor.el-input,
 .el-date-editor.el-input__inner,

@@ -1,12 +1,13 @@
 import HiaButtonGroup from './buttonGroup/index.js'
 import HiaButton from './button/index.js'
-
 import HiaUpload from './upload/index.js'
+import HiaForm from './form/index.js'
 
 const components = [
   HiaButton,
   HiaButtonGroup,
   HiaUpload,
+  HiaForm,
 ]
 
 const install = function (Vue, opts = {}) {
@@ -31,6 +32,7 @@ export {
   HiaButton,
   HiaButtonGroup,
   HiaUpload,
+  HiaForm,
 }
 
 export default {

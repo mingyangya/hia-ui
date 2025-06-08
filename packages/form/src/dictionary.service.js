@@ -13,8 +13,9 @@ export const getOptions = (c) => {
         label: "示例选项二",
         value: "2",
       },
-    ];
-    resolve(mockList);
+    ]
+
+    resolve(mockList)
   });
 }
 

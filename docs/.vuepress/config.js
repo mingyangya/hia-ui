@@ -33,6 +33,10 @@ module.exports = {
     }
   },
 
+  // scss: {
+  //   additionalData: `@import ".vuepress/styles/mixin.scss";`
+  // },
+
   configureWebpack: {
     resolve: {
       alias: {

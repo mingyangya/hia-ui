@@ -1,4 +1,4 @@
-import Index from './src/index.js'
+import Index from './src/index'
 
 Index.install = function (Vue) {
   Vue.component(Index.name, Index)
