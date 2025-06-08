@@ -37,9 +37,3 @@
     </HiaButtonGroup>
   </div>
 </template>
-
-<script>
-export default {
-  name: 'SourceButton',
-}
-</script>

@@ -23,21 +23,31 @@ export default {
 <style scoped lang="scss">
 .btn-group {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  .el-button {
+    margin: 0 10px 10px 0;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &[align='start'] {
+    @apply items-start;
+  }
+
+  &[align='center'] {
+    @apply items-center;
+  }
+
+  &[align='end'] {
+    @apply items-end;
+  }
 
   &[justify='start'] {
     @apply justify-start;
-  }
-
-  &[justify='center'] {
-    @apply justify-center;
-  }
-
-  &[justify='between'] {
-    @apply justify-between;
-  }
-
-  &[justify='end'] {
-    @apply justify-end;
   }
 }
 </style>

@@ -14,6 +14,8 @@ module.exports = {
       '/guide/': [
         ['', '介绍'],     /* /foo/ */
         ['button', '按钮'],
+        ['upload', '文件上传'],
+        ['form', '表单'],
         ['alink', '链接'],
       ],
     }

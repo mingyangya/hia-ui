@@ -226,8 +226,8 @@ export default {
     &.is-fixed {
       position: fixed;
       bottom: 0;
-      width: 1068px;
-      z-index: 1;
+      width: 740px;
+      z-index: 3;
     }
 
     i {
@@ -278,30 +278,6 @@ export default {
       font-size: 14px;
       padding-left: 5px;
       padding-right: 25px;
-    }
-  }
-
-  @media (max-width: 1500px) {
-    .code-format-control {
-      &.is-fixed {
-        width: 916px;
-      }
-    }
-  }
-
-  @media (max-width: 1300px) {
-    .code-format-control {
-      &.is-fixed {
-        width: 840px;
-      }
-    }
-  }
-
-  @media (max-width: 1200px) {
-    .code-format-control {
-      &.is-fixed {
-        width: 770px;
-      }
     }
   }
 
