@@ -1,10 +1,5 @@
-const {NODE_ENV} = process.env
-
-const isPro = process.env.NODE_ENV === 'production'
-
-const baseUrl = '/'
-
-console.log('isPro', isPro, process.env)
+const { NODE_ENV } = process.env
+const isPro = NODE_ENV === 'production'
 
 module.exports = {
   base: isPro ? '/hia-ui/' : '/',
@@ -44,6 +39,11 @@ module.exports = {
   // scss: {
   //   additionalData: `@import ".vuepress/styles/mixin.scss";`
   // },
+
+  // @see https://blog.csdn.net/cwin8951/article/details/121628049
+  chainWebpack(config) {
+    config.resolve.alias.set('core-js/library/fn', 'core-js/features');
+  },
 
   configureWebpack: {
     resolve: {
