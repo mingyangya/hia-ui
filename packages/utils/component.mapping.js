@@ -1,10 +1,16 @@
 
 import customRender from "./custom.render"
+// import { HiaRadioGroup } from "@packages/radioGroup/index"
+// import { HiaRadioGroup } from "../radioGroup/index"
+
+// console.log('HiaRadioGroup', HiaRadioGroup)
 
 // 导出一个函数，用于获取表单项组件
 export const getFormItemComponent = (c) => {
   // 解构出传入的参数c中的type、component、render
   const { type, component, render } = c
+
+  // debugger
 
   // 如果c中有component属性，则直接返回component
   if (component) {
@@ -17,7 +23,7 @@ export const getFormItemComponent = (c) => {
 
     // 文本框
     text: 'ElInput',
-    textarea: 'ElInput',
+    textarea: 'el-input',
     password: 'ElInput',
 
     // 数字输入框
@@ -28,6 +34,7 @@ export const getFormItemComponent = (c) => {
 
     // 单选框
     'hia-radio': 'HiaRadio',
+    // radio: 'HiaRadioGroup',
     radio: 'HiaRadioGroup',
     'radio-group': 'HiaRadioGroup',
 
@@ -66,6 +73,8 @@ export const getFormItemComponent = (c) => {
   if (!newComponent) {
     newComponent = render ? customRender : null
   }
+
+  console.log('newComponent', newComponent)
 
   return newComponent
 }

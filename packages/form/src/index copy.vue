@@ -29,11 +29,153 @@
           }">
             <slot :name="slotName(c)" v-bind="{ item: c, form, emitData: emitFormData }" ref="refFormItem">
 
-              <template v-if="!isCustomComponent(c)">
-                <component :is="getFormItemComponent(c)"
-                  v-bind="{ ...c, disabled: itemDisabled(c), readonly: itemReadonly(c), viewonly: itemViewonly(c) }"
-                  @input="val => handleChange(val, c.prop)" @keyup.enter.native="val => $emit('keyup-enter', val)">
-                </component>
+              <!-- 输入框 -->
+              <template v-if="['textarea', 'text', 'password'].includes(c.type)">
+                <template v-if="itemViewonly(c)">
+                  {{ form[c.prop] | formatEmpty }}
+                </template>
+                <template v-else>
+                  <el-input v-model="form[c.prop]"
+                    v-bind="{ ...c, disabled: itemDisabled(c), readonly: itemReadonly(c), viewonly: itemViewonly(c), }"
+                    @input="val => handleChange(val, c.prop)"
+                    @keyup.enter.native="val => $emit('keyup-enter', val)"></el-input>
+                </template>
+              </template>
+
+              <!-- 计数器 -->
+              <template v-else-if="c.type === 'number'">
+                <template v-if="itemViewonly(c)">
+                  {{ form[c.prop] | formatEmpty }}
+                </template>
+                <template v-else>
+                  <el-input-number v-model="form[c.prop]"
+                    v-bind="{ ...c, disabled: itemDisabled(c), readonly: itemReadonly(c), viewonly: itemViewonly(c), }"
+                    @input.native="val => handleInputNumberChange(val && val.target && val.target.value, c.prop)"></el-input-number>
+                </template>
+              </template>
+
+              <!-- 单选 -->
+              <template v-else-if="c.type === 'radio'">
+                <template v-if="itemViewonly(c)">
+                  {{ form[c.prop] | formatOptions(c.options) }}
+                </template>
+                <template v-else>
+                  <el-radio-group v-model="form[c.prop]"
+                    v-bind="{ ...c, disabled: itemDisabled(c), readonly: itemReadonly(c), viewonly: itemViewonly(c), }"
+                    @change="val => handleChange(val, c.prop)">
+                    <el-radio :label="item.value" v-for="(item, itemK) in c.options" :key="item.value + '-' + itemK">{{
+                      item.label }}</el-radio>
+                  </el-radio-group>
+                </template>
+              </template>
+
+              <!-- 多选 -->
+              <template v-else-if="c.type === 'checkbox'">
+                <template v-if="itemViewonly(c)">
+                  {{ form[c.prop] | formatOptions(c.options, 'label', 'value') }}
+                </template>
+                <template v-else>
+                  <el-checkbox-group v-model="form[c.prop]"
+                    v-bind="{ ...c, disabled: itemDisabled(c), readonly: itemReadonly(c), viewonly: itemViewonly(c), }"
+                    @change="val => handleChange(val, c.prop)">
+                    <el-checkbox :label="item.value" v-for="(item, itemK) in c.options"
+                      :key="item.value + '-' + itemK">{{
+                        item.label }}</el-checkbox>
+                  </el-checkbox-group>
+                </template>
+              </template>
+
+              <!-- 级联 -->
+              <template v-else-if="c.type === 'cascader'">
+                <el-cascader v-model="form[c.prop]"
+                  v-bind="{ ...c, disabled: itemDisabled(c), readonly: itemReadonly(c), viewonly: itemViewonly(c), }"
+                  @change="val => handleChange(val, c.prop)"></el-cascader>
+              </template>
+
+              <template v-else-if="c.type === 'color-picker'">
+                <template v-if="itemViewonly(c)">
+                  {{ form[c.prop] | formatEmpty }}
+                </template>
+                <template v-else>
+                  <el-color-picker v-model="form[c.prop]"
+                    v-bind="{ ...c, disabled: itemDisabled(c), readonly: itemReadonly(c), viewonly: itemViewonly(c), }"
+                    @change="val => handleChange(val, c.prop)"></el-color-picker>
+                </template>
+              </template>
+
+              <!-- 下拉框 -->
+              <template v-else-if="c.type === 'select'">
+                <template v-if="itemViewonly(c)">
+                  {{ form[c.prop] | formatOptions(c.options, c.labelKey, c.valueKey) }}
+                </template>
+                <template v-else>
+                  <el-select v-model="form[c.prop]"
+                    v-bind="{ ...c, disabled: itemDisabled(c), readonly: itemReadonly(c), viewonly: itemViewonly(c), }"
+                    @clear="c.clear && c.clear(c, form)" @change="val => handleChange(val, c.prop)">
+                    <el-option v-for="(item, itemK) in c.options" :size="size" :key="item.value + '-' + itemK"
+                      :label="item.label" :value="c.valueIsObject ? item : item.value">
+                    </el-option>
+                  </el-select>
+                </template>
+              </template>
+
+              <!-- 日期选择器 -->
+              <template v-else-if="c.type === 'date-picker'">
+                <template v-if="itemViewonly(c)">
+                  {{ form[c.prop] | formatDate }}
+                </template>
+                <template v-else>
+                  <el-date-picker v-model="form[c.prop]"
+                    v-bind="{ ...c, type: c.itemType || 'date', disabled: itemDisabled(c), readonly: itemReadonly(c), viewonly: itemViewonly(c), }"
+                    @change="val => handleChange(val, c.prop)">
+                  </el-date-picker>
+                </template>
+              </template>
+
+              <!-- 日期选择器 -->
+              <template v-else-if="c.type === 'time-picker'">
+                <template v-if="itemViewonly(c)">
+                  {{ form[c.prop] | formatDate }}
+                </template>
+                <template v-else>
+                  <el-time-picker v-model="form[c.prop]"
+                    v-bind="{ ...c, disabled: itemDisabled(c), readonly: itemReadonly(c), viewonly: itemViewonly(c), }"
+                    @change="val => handleChange(val, c.prop)">
+                  </el-time-picker>
+                </template>
+              </template>
+
+              <!-- 时间选择器 -->
+              <template v-else-if="c.type === 'time-select'">
+                <template v-if="itemViewonly(c)">
+                  {{ form[c.prop] | formatDate }}
+                </template>
+                <template v-else>
+                  <el-time-select v-model="form[c.prop]"
+                    v-bind="{ ...c, disabled: itemDisabled(c), readonly: itemReadonly(c), viewonly: itemViewonly(c), }"
+                    @change="val => handleChange(val, c.prop)">
+                  </el-time-select>
+                </template>
+              </template>
+
+              <!-- 自定义上传 -->
+              <template v-else-if="c.type === 'custom-upload'">
+                <slot :name="`${c.type}-${c.prop}`">
+                  <HiaUpload ref="refHiaUpload"
+                    v-bind="{ ...c, btnType: 'red', btnSize: c.size || c.btnSize || size, icon: 'el-icon-upload2', disabled: itemDisabled(c), readonly: itemReadonly(c), viewonly: itemViewonly(c), }"
+                    @change="(value) => handleCustomChange(value, c.prop)">
+                    <template #append>
+                      <slot :name="`${c.type}-${c.prop}-append`">
+                      </slot>
+                    </template>
+
+                    <template #default="slotProps">
+                      <slot :name="`${c.type}-${c.prop}-default`" v-bind="{ ...slotProps, ...value }">
+                      </slot>
+                    </template>
+
+                  </HiaUpload>
+                </slot>
               </template>
 
               <template v-else>
@@ -56,8 +198,6 @@
 import defaultProp from './prop.js'
 import * as dictionaryApi from './dictionary.service'
 import { customValidateItem, noop, isEmpty, isUndefined, isSupportGrid } from '@packages/utils/form.util.js'
-
-import { getFormItemComponent } from '@packages/utils/component.mapping.js'
 
 export default {
   name: 'HiaForm',
@@ -133,15 +273,6 @@ export default {
 
     noop() {
       return noop
-    },
-
-    getFormItemComponent(c) {
-      return c => getFormItemComponent(c)
-    },
-
-    // 是否为自定义组件（使用默认插槽）
-    isCustomComponent() {
-      return c => isEmpty(this.getFormItemComponent(c))
     }
   },
   data() {

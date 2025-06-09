@@ -18,15 +18,33 @@ export default {
         {
           type: 'text',
           prop: 'name',
-          label: '流程名称',
+          label: 'text输入框',
           rules: { required: true, message: '请输入', trigger: 'blur' },
           col: 8,
         },
         {
-          type: 'text',
-          prop: 'type',
-          label: '业务类型',
+          type: 'textarea',
+          prop: 'text',
+          label: 'textrea输入框',
           rules: { required: true, message: '请输入', trigger: 'blur' },
+          col: 8,
+        },
+        {
+          type: 'radio',
+          prop: 'type',
+          label: 'radio组',
+          value: '1',
+          options: [
+            {
+              label: '选项1',
+              value: '1',
+            },
+            {
+              label: '选项2',
+              value: '2',
+            }
+          ],
+          rules: { required: true, message: '请输入', trigger: 'change' },
           col: 8,
         }
       ],
