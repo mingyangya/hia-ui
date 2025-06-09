@@ -1,4 +1,10 @@
+const {NODE_ENV} = process.env
+
 const isPro = process.env.NODE_ENV === 'production'
+
+const baseUrl = '/'
+
+console.log('isPro', isPro, process.env)
 
 module.exports = {
   base: isPro ? '/hia-ui/' : '/',
@@ -15,6 +21,8 @@ module.exports = {
         ['', '介绍'],     /* /foo/ */
         ['button', '按钮'],
         ['upload', '文件上传'],
+        ['radio', '单选框'],
+        ['radioGroup', '单选框组'],
         ['form', '表单'],
         ['alink', '链接'],
       ],

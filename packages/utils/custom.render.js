@@ -2,6 +2,7 @@ import { func } from 'vue-types'
 
 export default {
   functional: true,
+  name: '',
   prop: {
     render: func().def(() => { })
   },

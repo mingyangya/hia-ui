@@ -1,12 +1,16 @@
 import HiaButtonGroup from './buttonGroup/index.js'
 import HiaButton from './button/index.js'
 import HiaUpload from './upload/index.js'
+import HiaRadio from './radio/index.js'
+import HiaRadioGroup from './radioGroup/index.js'
 import HiaForm from './form/index.js'
 
 const components = [
   HiaButton,
   HiaButtonGroup,
   HiaUpload,
+  HiaRadio,
+  HiaRadioGroup,
   HiaForm,
 ]
 
@@ -32,6 +36,8 @@ export {
   HiaButton,
   HiaButtonGroup,
   HiaUpload,
+  HiaRadio,
+  HiaRadioGroup,
   HiaForm,
 }
 

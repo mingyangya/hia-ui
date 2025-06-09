@@ -13,6 +13,8 @@ export const getFormItemComponent = (c) => {
 
   // 组件映射关系
   const componentMap = {
+    'button': 'ElButton',
+
     // 文本框
     text: 'ElInput',
     textarea: 'ElInput',
@@ -24,8 +26,11 @@ export const getFormItemComponent = (c) => {
     // 下拉选择框
     select: 'ElSelect',
 
-    // 单选框 todo 待完善
-    radio: 'ElRadio',
+    // 单选框
+    'hia-radio': 'HiaRadio',
+    radio: 'HiaRadioGroup',
+    'radio-group': 'HiaRadioGroup',
+
     // 多选框
     checkbox: 'ElCheckbox',
 
