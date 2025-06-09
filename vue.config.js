@@ -33,16 +33,7 @@ module.exports = {
       './cptable': 'var cptable'
     },
     plugins: [
-      {
-        apply: (compiler) => {
-          compiler.plugin('compilation', (compilation) => {
-            compilation.plugin('html-webpack-plugin-before-html-generation', (data, cb) => {
-              data.html += '<script src="https://example.com/external-script.js"></script>';
-              cb(null, data);
-            });
-          });
-        }
-      }
+
     ],
   },
 
@@ -51,7 +42,7 @@ module.exports = {
     'style-resources-loader': {
       preProcessor: 'scss',
       patterns: [
-        path.resolve(__dirname, './src/assets/css/common.scss')
+        path.resolve(__dirname, './examples/assets/css/common.scss')
       ]
     }
   },

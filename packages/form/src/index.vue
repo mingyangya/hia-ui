@@ -55,9 +55,9 @@
 <script>
 import defaultProp from './prop.js'
 import * as dictionaryApi from './dictionary.service'
-import { customValidateItem, noop, isEmpty, isUndefined, isSupportGrid } from '@packages/utils/form.util.js'
+import { customValidateItem, noop, isEmpty, isUndefined, isSupportGrid } from '../../utils/form.util.js'
 
-import { getFormItemComponent } from '@packages/utils/component.mapping.js'
+import { getFormItemComponent } from '../../utils/component.mapping.js'
 
 export default {
   name: 'HiaForm',

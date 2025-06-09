@@ -1,10 +1,21 @@
 <template>
   <div id="app">
+    <HiaButton> sss </HiaButton>
     <router-view/>
   </div>
 </template>
 
+<script>
+export default {
+  name: 'App',
+  mounted() {
+    console.log('mounted', window)
+  }
+}
+</script>
+
 <style>
+
 @import url(./assets/css/typo.css);
 @import url(./assets/css/tailwind.scss);
 body,html {

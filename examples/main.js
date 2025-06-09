@@ -5,6 +5,8 @@ import store from './store'
 import { Storage } from '@/utils/storage'
 import ElementUI from 'element-ui'
 
+import HiaUi from '../packages/index'
+
 import '@/directive/zoom-img'
 
 // const VConsole = require('vconsole')
@@ -14,6 +16,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 Vue.config.productionTip = false
 
 Vue.use(ElementUI)
+
+Vue.use(HiaUi)
 
 Vue.prototype.$storage = new Storage()
 

@@ -197,7 +197,7 @@
 <script>
 import defaultProp from './prop.js'
 import * as dictionaryApi from './dictionary.service'
-import { customValidateItem, noop, isEmpty, isUndefined, isSupportGrid } from '@packages/utils/form.util.js'
+import { customValidateItem, noop, isEmpty, isUndefined, isSupportGrid } from '../../utils/form.util.js'
 
 export default {
   name: 'HiaForm',

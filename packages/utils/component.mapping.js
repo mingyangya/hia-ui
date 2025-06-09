@@ -1,5 +1,5 @@
 
-import customRender from "./custom.render"
+// import customRender from "./custom.render"
 // import { HiaRadioGroup } from "@packages/radioGroup/index"
 // import { HiaRadioGroup } from "../radioGroup/index"
 
