@@ -1,10 +1,14 @@
 {
-  "name": "@mingyia/hia-ui",
+  "name": "hia-ui",
   "version": "0.0.1",
   "description": "ui library",
   "author": "Ming Yang",
   "private": false,
   "main": "lib/hia-ui.umd.min.js",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "files": [
     "packages",
     "lib"
