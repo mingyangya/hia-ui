@@ -3,9 +3,11 @@
   "version": "0.0.1",
   "description": "ui library",
   "author": "Ming Yang",
-  "private": true,
+  "private": false,
+  "main": "lib/hia-ui.umd.min.js",
   "files": [
-    "packages"
+    "packages",
+    "lib"
   ],
   "homepage": "https://mingyangya.github.io/hia-ui/",
   "scripts": {
