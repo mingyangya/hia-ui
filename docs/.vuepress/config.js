@@ -13,7 +13,7 @@ module.exports = {
     ],
     sidebar: {
       '/guide/': [
-        ['', '介绍'],     /* /foo/ */
+        ['installation', '安装'],
         ['button', '按钮'],
         ['upload', '文件上传'],
         ['radio', '单选框'],
