@@ -44,7 +44,33 @@ export default {
               value: '2',
             }
           ],
-          rules: { required: true, message: '请输入', trigger: 'change' },
+          rules: { required: true, message: '请选择', trigger: 'change' },
+          col: 8,
+        },
+        {
+          type: 'checkbox',
+          prop: 'checkbox1',
+          label: 'checkbox组',
+          // value: ['A'],
+          options: [
+            {
+              label: 'A',
+              value: 'A',
+            },
+            {
+              label: 'B',
+              value: 'B',
+            },
+            {
+              label: 'C',
+              value: 'C',
+            },
+            {
+              label: 'D',
+              value: 'D',
+            }
+          ],
+          rules: { required: true, message: '请选择', trigger: 'change' },
           col: 8,
         }
       ],

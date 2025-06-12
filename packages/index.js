@@ -1,8 +1,13 @@
 import HiaButtonGroup from './buttonGroup/index.js'
 import HiaButton from './button/index.js'
 import HiaUpload from './upload/index.js'
+
 import HiaRadio from './radio/index.js'
 import HiaRadioGroup from './radioGroup/index.js'
+
+import HiaCheckbox from './checkbox/index.js'
+import HiaCheckboxGroup from './checkboxGroup/index.js'
+
 import HiaForm from './form/index.js'
 
 const components = [
@@ -11,6 +16,8 @@ const components = [
   HiaUpload,
   HiaRadio,
   HiaRadioGroup,
+  HiaCheckbox,
+  HiaCheckboxGroup,
   HiaForm,
 ]
 
@@ -38,6 +45,8 @@ export {
   HiaUpload,
   HiaRadio,
   HiaRadioGroup,
+  HiaCheckbox,
+  HiaCheckboxGroup,
   HiaForm,
 }
 

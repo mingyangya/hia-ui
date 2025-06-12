@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-    <a href="https://www.baidu.com" target="_blank" class="alink">链接</a>
+    <a href="https://github.com/mingyangya/hia-ui" target="_blank" class="alink">链接</a>
   </div>
 </template>
 

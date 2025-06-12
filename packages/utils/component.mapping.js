@@ -39,7 +39,9 @@ export const getFormItemComponent = (c) => {
     'radio-group': 'HiaRadioGroup',
 
     // 多选框
-    checkbox: 'ElCheckbox',
+    'hia-checkbox': 'ElCheckbox',
+    'checkbox': 'HiaCheckboxGroup',
+    'checkbox-group': 'HiaCheckboxGroup',
 
     // 级联选择框
     cascader: 'ElCascader',

@@ -3,13 +3,13 @@ const isPro = NODE_ENV === 'production'
 
 module.exports = {
   base: isPro ? '/hia-ui/' : '/',
-  title: 'Hello VuePress',
-  description: 'Just playing around',
+  title: 'Hia-ui',
+  description: '基于Vue2.7.16 + Element-ui 2.15.6 二次封装的组件库',
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },
       { text: '指南', link: '/guide/' },
-      { text: 'External', link: 'https://google.com' },
+      { text: 'Github', link: 'https://github.com/mingyangya/hia-ui' },
     ],
     sidebar: {
       '/guide/': [
@@ -18,6 +18,7 @@ module.exports = {
         ['upload', '文件上传'],
         ['radio', '单选框'],
         ['radioGroup', '单选框组'],
+        ['checkboxGroup', '多选框组'],
         ['form', '表单'],
         ['alink', '链接'],
       ],
