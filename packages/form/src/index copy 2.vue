@@ -16,8 +16,8 @@
       <template v-for="(c, i) in config">
         <slot :name="colBeforeSlotName(c)" />
 
-        <componet v-if="itemShow(c)" :is="itemColComponent" ref="refFromContainer" v-bind="{
-          class: itemColComponentClass(c),
+        <componet v-if="itemShow(c)" :is="itemColComponent" v-bind="{
+          class: itemColComponentClass,
           span: c.col ? c.col : defaultCol
         }">
           <el-form-item :class="`el-form-item-${c.prop}`" v-bind="{
@@ -27,13 +27,6 @@
             viewonly: itemViewonly(c),
             position: labelPosition
           }">
-
-            <template #label>
-              <slot :name="slotNameLabel(c)" v-bind="{ item: c, form, emitData: emitFormData }"></slot>
-            </template>
-
-            <slot :name="slotNamePrefix(c)" v-bind="{ item: c, form, emitData: emitFormData }"></slot>
-
             <slot :name="slotName(c)" v-bind="{ item: c, form, emitData: emitFormData }" ref="refFormItem">
 
               <template v-if="!isCustomComponent(c)">
@@ -80,15 +73,6 @@ export default {
       return (c) => isEmpty(c.type) ? `form-item-${c.prop}-custom` : `form-item-${c.prop}`
     },
 
-    slotNameLabel() {
-      return (c) => isEmpty(c.type) ? `label-form-item-${c.prop}-custom` : `label-form-item-${c.prop}`
-    },
-
-    slotNamePrefix() {
-      // 前缀
-      return (c) => isEmpty(c.type) ? `prefix-form-item-${c.prop}-custom` : `prefix-form-item-${c.prop}`
-    },
-
     slotNameSuffix() {
       // 后缀
       return (c) => isEmpty(c.type) ? `suffix-form-item-${c.prop}-custom` : `suffix-form-item-${c.prop}`
@@ -131,24 +115,20 @@ export default {
       return { value, conf }
     },
 
-    useGridLayout() {
-      return this.gridLayout ? isSupportGrid : false
-    },
-
     itemRowComponent() {
-      return this.useGridLayout ? 'div' : 'el-row'
+      return isSupportGrid ? 'div' : 'el-row'
     },
 
     itemRowComponentClass() {
-      return this.useGridLayout ? 'form-item-grid' : 'form-item-row'
+      return isSupportGrid ? 'form-item-grid' : 'form-item-row'
     },
 
     itemColComponent() {
-      return this.useGridLayout ? 'div' : 'el-col'
+      return isSupportGrid ? 'div' : 'el-col'
     },
 
     itemColComponentClass() {
-      return c => this.useGridLayout ? `form-item-grid-col-${c.col || 24}` : 'form-item-row-col'
+      return isSupportGrid ? 'form-item-grid-col' : 'form-item-row-col'
     },
 
     noop() {
@@ -177,7 +157,7 @@ export default {
       handler: function (newV) {
         this.init(newV)
       },
-      immediate: true,
+      // immediate: true,
       deep: true,
     }
   },
@@ -187,28 +167,12 @@ export default {
     },
 
     init({ value = this.form, conf = this.conf }) {
-      // 设置css变量
-      this.initCss()
-
       this.initConfig(conf, value)
     },
 
     getBooleanValue(item, prop = 'disabled') {
       // 判断item[prop]是否为undefined，是则取this[prop], 否取则对应item[prop]
       return isUndefined(item[prop]) ? (this[prop] ? !!this[prop] : false) : typeof item[prop] === 'function' ? item[prop](item) : !!item[prop]
-    },
-
-    initCss() {
-      const gutter = parseInt(this.gutter) || 0
-
-      const mapping = {
-        '--gutter': `${parseInt(this.gutter) || 0}px`,
-      }
-
-      Object.keys(mapping).forEach(key => {
-        
-      })
-
     },
 
     async initConfig(conf = [], value) {
@@ -415,7 +379,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import './css/base.scss';
+@import './mixin.scss';
+@import './form.detail.scss';
 
 .el-date-editor.el-input,
 .el-date-editor.el-input__inner,
@@ -453,7 +418,7 @@ export default {
   .el-form-item__label {
     position: relative;
     display: flex;
-    align-items: flex-start;
+    align-items: start;
     padding: 0;
 
     &:after {
@@ -473,20 +438,5 @@ export default {
       justify-content: flex-start;
     }
   }
-}
-
-::v-deep .el-form-item__content {
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  flex: 1;
-}
-
-
-// grid 
-
-.form-item-grid {
-  /* 设置网格之间的间距为20px */
-  grid-gap: var(--gutter)
 }
 </style>

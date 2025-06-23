@@ -9,7 +9,6 @@ export default {
   },
   render(h, { props, listeners, slots, attrs }) {
     const newProp = { ...props, ...attrs }
-    const { label, value } = newProp
     const children = slots().default || []
 
     return h(

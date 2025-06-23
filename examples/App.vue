@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <HiaButton> sss </HiaButton>
+    <!-- <HiaButton> sss </HiaButton> -->
     <router-view/>
   </div>
 </template>

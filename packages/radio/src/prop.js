@@ -1,4 +1,4 @@
-import { string, bool, object, oneOf, number, oneOfType } from 'vue-types'
+import { string, bool, oneOf, number, oneOfType } from 'vue-types'
 
 export default {
   // 绑定值

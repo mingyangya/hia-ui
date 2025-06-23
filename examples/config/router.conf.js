@@ -9,6 +9,14 @@ const config = [
     path: '/',
     componentPath: routerPath('Home'),
     mata: {},
+  },
+  {
+    name: 'form',
+    nickname: '首页',
+    isNotMenu: true,
+    path: '/form',
+    componentPath: routerPath('Form'),
+    mata: {},
   }
 ]
 

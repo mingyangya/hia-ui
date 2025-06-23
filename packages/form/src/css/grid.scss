@@ -1,0 +1,15 @@
+.form-item-grid {
+  display: grid;
+  // 设置网格列数为24，每列宽度相等
+  grid-template-columns: repeat(24, 1fr);
+  // 设置网格自动布局方式为行密集布局
+  grid-auto-flow: row dense;
+}
+
+// 使用for循环生成24个类，每个类代表网格的一列
+@for $i from 1 through 24 {
+  .form-item-grid-col-#{$i} {
+    // 设置网格列结束位置为当前列数
+    grid-column-end: span #{$i};
+  }
+}

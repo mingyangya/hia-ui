@@ -2,7 +2,7 @@ import { string, bool, number, array, object, oneOf } from 'vue-types'
 
 export default {
   size: oneOf(['medium', 'small', 'mini']).def('small'),
-  labelWidth: string().def('100px'),
+  labelWidth: string().def('auto'),
   labelPosition: oneOf(['right', 'left', 'top']).def('right'),
   rules: object(),
   labelSuffix: string().def(''),
@@ -17,4 +17,6 @@ export default {
   hideRequiredAsterisk: bool().def(false),
   conf: array().def([]),
   value: object().def({}),
+  // 是否使用grid布局
+  gridLayout: bool().def(false),
 }
