@@ -12,6 +12,7 @@ export default {
   viewonly: bool().def(false),
   readonly: bool().def(false),
   // 栅格间隔
+  // todo 后期待决定是否支持其他单位
   gutter: number().def(0),
   // 是否隐藏必填字段的标签旁边的红色星号
   hideRequiredAsterisk: bool().def(false),

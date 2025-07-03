@@ -27,51 +27,39 @@
 </template>
 
 <script>
-// import defaultProp from './prop.js'
-import { string, bool, array, number, object } from 'vue-types'
+import defaultProp from './prop.js'
 import { customValidateItem } from '../../utils/form.util.js'
 
 export default {
   name: 'HiaUpload',
   props: {
-    multiple: bool().def(false),
-    // 接受的文件类型
-    accept: string().def('*/*'),
-    // 文本名称
-    label: string().def('选择文件并上传'),
-    btn: object().def({}),
-    btnSize: string().def('small'),
-    btnType: string().def('primary'),
-    icon: string().def('el-icon-upload'),
-    // 文件大小
-    maxSize: number().def(Infinity),
-    minSize: number().def(0),
-    // 是否阻止事件冒泡
-    stopPropagation: bool().def(false),
-    disabled: bool().def(false),
-    showFileList: bool().def(false),
-    value: array().def([]),
-
-    // 数据变化时是否触发校验
-    validateEvent: bool().def(true),
-
+    ...defaultProp,
   },
   model: {
     prop: 'value',
     event: ['change', 'update:value'],
   },
+  computed: {
+    fileSize() {
+      let max = Math.min(this.maxSize, Infinity)
+      let min = Math.max(0, this.minSize)
+
+      return {
+        max: Number((Math.ceil(max * 10000 / 1024) / 10000).toFixed(4)),
+        min: Number((Math.ceil(min * 10000 / 1024) / 10000).toFixed(4))
+      }
+    }
+  },
   watch: {
     value: {
       handler(val) {
         this.files = val || []
-      },
-      immediate: true
+
+        if (this.validateEvent) {
+          customValidateItem(this, 'change', this.files)
+        }
+      }
     }
-  },
-  computed: {
-    getInput() {
-      return this.$refs.refInput
-    },
   },
   data() {
     return {
@@ -83,33 +71,46 @@ export default {
       this.files = []
     },
 
+    getFileExtension(filename) {
+      const parts = filename.split('.');
+      return parts.length > 1 ? parts.pop().toLowerCase() : ''
+    },
+
     handleInputClick() {
       this.stopPropagation && event.stopPropagation()
     },
 
     handleInput(event) {
-      // this.reset()
+      this.reset()
 
       const target = event.target
       const { files } = target
       const extraParams = Object.assign({}, this.$attrs, this.$props)
-      const newFiles = Array.from(files)
 
-      this.files = newFiles
+      this.files = Array.from(files)
       target.value = ''
 
+      const checkSizeResult = this.handleFileSize(files)
+      console.log('checkSizeResult', checkSizeResult)
 
-      this.$emit('select-files', newFiles, extraParams)
+      if (checkSizeResult) {
+        this.$emit('select-files', files, extraParams)
 
-      this.$emit('change', newFiles)
-
-      this.$emit('update:value', newFiles)
+        this.$emit('change', files)
+        this.$emit('update:value', files)
+      }
 
       if (this.validateEvent) {
-        this.$nextTick(() => {
-          customValidateItem(this, 'change', newFiles)
-        })
+        customValidateItem(this, 'change', files)
       }
+    },
+
+    handleFileSize(files) {
+      const max = Math.min(this.maxSize, Infinity)
+      const min = Math.max(0, this.minSize)
+      const flag = Array.from(files).every(item => item.size >= min && item.size <= max)
+
+      return flag
     },
 
     handleUpload() {

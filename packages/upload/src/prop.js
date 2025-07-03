@@ -1,4 +1,4 @@
-import { string, bool, number, object } from 'vue-types'
+import { string, bool, array, number, object } from 'vue-types'
 
 export default {
   // @see https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/input/file
@@ -19,4 +19,8 @@ export default {
   stopPropagation: bool().def(false),
   disabled: bool().def(false),
   showFileList: bool().def(false),
+  value: array().def([]),
+
+  // 数据变化时是否触发校验
+  validateEvent: bool().def(true),
 }

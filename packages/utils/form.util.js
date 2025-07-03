@@ -1,5 +1,5 @@
 export const isUndefined = (val) => {
-  return typeof val === 'undefined' && val === undefined
+  return typeof val === 'undefined' && val === void 0
 }
 
 export const isNull = (val) => {
@@ -41,6 +41,7 @@ export const isEmpty = function (val) {
   return false;
 };
 
+
 export const valueEquals = (a, b) => {
   // see: https://stackoverflow.com/questions/3115982/how-to-check-if-two-arrays-are-equal-with-javascript
   if (a === b) return true;
@@ -66,10 +67,12 @@ export const getVueElement = (ele) => {
 export const customDispatch = (vueEleRef, componentName, eventName, params) => {
   const thatRef = vueEleRef['$el'] ? vueEleRef : getVueElement(vueEleRef)
 
-  let parent = thatRef;
+  let parent =  thatRef.$parent || thatRef.$root;
   let name = parent.$options.componentName;
+
   while (parent && (!name || name !== componentName)) {
     parent = parent.$parent;
+    
     if (parent) {
       name = parent.$options.componentName;
     }
@@ -86,7 +89,10 @@ export const customDispatch = (vueEleRef, componentName, eventName, params) => {
 export const customValidateItem = (thatRef, type = 'change', val) => {
   const value = Array.isArray(val) ? val : [val]
 
+  console.log('thatRef', thatRef, `el.form.${type}`, value)
+
   customDispatch(thatRef, 'ElFormItem', `el.form.${type}`, value)
+  // customDispatch(thatRef, 'ElForm', `el.form.${type}`, value)
 }
 
 

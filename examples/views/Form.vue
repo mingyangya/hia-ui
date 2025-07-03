@@ -1,6 +1,6 @@
 <template>
   <div class="Form">
-    <HiaForm class="form-area" v-model="form" v-bind="{ conf }" ref="refForm">
+    <HiaForm class="form-area" v-model="form" v-bind="{ gridLayout: true, conf, gutter: 20 }" ref="refForm">
       <template #form-item-name="{ item: c }">
         <div>neirong </div>
       </template>
@@ -30,64 +30,71 @@ export default {
     return {
       form: {},
       conf: [
+        // {
+        //   type: 'text',
+        //   prop: 'name',
+        //   label: 'text输入框',
+        //   rules: { required: true, message: '请输入', trigger: 'blur' },
+        //   col: 12,
+        // },
+        // {
+        //   type: 'textarea',
+        //   prop: 'text',
+        //   label: 'textrea输入框',
+        //   rules: { required: true, message: '请输入', trigger: 'blur' },
+        //   col: 12,
+        // },
+        // {
+        //   type: 'radio',
+        //   prop: 'type',
+        //   label: 'radio组',
+        //   value: '1',
+        //   options: [
+        //     {
+        //       label: '选项1',
+        //       value: '1',
+        //     },
+        //     {
+        //       label: '选项2',
+        //       value: '2',
+        //     }
+        //   ],
+        //   rules: { required: true, message: '请选择', trigger: 'change' },
+        //   col: 8,
+        // },
+        // {
+        //   type: 'checkbox',
+        //   prop: 'checkbox1',
+        //   label: 'checkbox组',
+        //   // value: ['A'],
+        //   options: [
+        //     {
+        //       label: 'A',
+        //       value: 'A',
+        //     },
+        //     {
+        //       label: 'B',
+        //       value: 'B',
+        //     },
+        //     {
+        //       label: 'C',
+        //       value: 'C',
+        //     },
+        //     {
+        //       label: 'D',
+        //       value: 'D',
+        //     }
+        //   ],
+        //   rules: { required: true, message: '请选择', trigger: 'change' },
+        //   col: 20,
+        // },
         {
-          type: 'text',
-          prop: 'name',
-          label: 'text输入框',
-          rules: { required: true, message: '请输入', trigger: 'blur' },
+          type: 'CustomUpload',
+          prop: 'file',
+          label: '文件',
+          rules: { required: true, message: '请输入', trigger: 'change' },
           col: 12,
         },
-        {
-          type: 'textarea',
-          prop: 'text',
-          label: 'textrea输入框',
-          rules: { required: true, message: '请输入', trigger: 'blur' },
-          col: 12,
-        },
-        {
-          type: 'radio',
-          prop: 'type',
-          label: 'radio组',
-          value: '1',
-          options: [
-            {
-              label: '选项1',
-              value: '1',
-            },
-            {
-              label: '选项2',
-              value: '2',
-            }
-          ],
-          rules: { required: true, message: '请选择', trigger: 'change' },
-          col: 8,
-        },
-        {
-          type: 'checkbox',
-          prop: 'checkbox1',
-          label: 'checkbox组',
-          // value: ['A'],
-          options: [
-            {
-              label: 'A',
-              value: 'A',
-            },
-            {
-              label: 'B',
-              value: 'B',
-            },
-            {
-              label: 'C',
-              value: 'C',
-            },
-            {
-              label: 'D',
-              value: 'D',
-            }
-          ],
-          rules: { required: true, message: '请选择', trigger: 'change' },
-          col: 8,
-        }
       ],
     }
   },

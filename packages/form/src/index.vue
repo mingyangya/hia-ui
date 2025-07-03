@@ -39,7 +39,7 @@
               <template v-if="!isCustomComponent(c)">
                 <component :is="getFormItemComponent(c)"
                   v-bind="{ ...c, disabled: itemDisabled(c), readonly: itemReadonly(c), viewonly: itemViewonly(c) }"
-                  @input="val => handleChange(val, c.prop)" @keyup.enter.native="val => $emit('keyup-enter', val)">
+                  @input="val => handleChange(val, c.prop)" @change="val => handleChange(val, c.prop)" @update:value="val => handleChange(val, c.prop)" @keyup.enter.native="val => $emit('keyup-enter', val)">
                 </component>
               </template>
 
@@ -84,13 +84,13 @@ export default {
       return (c) => isEmpty(c.type) ? `label-form-item-${c.prop}-custom` : `label-form-item-${c.prop}`
     },
 
+    // 前缀
     slotNamePrefix() {
-      // 前缀
       return (c) => isEmpty(c.type) ? `prefix-form-item-${c.prop}-custom` : `prefix-form-item-${c.prop}`
     },
 
+    // 后缀
     slotNameSuffix() {
-      // 后缀
       return (c) => isEmpty(c.type) ? `suffix-form-item-${c.prop}-custom` : `suffix-form-item-${c.prop}`
     },
 
@@ -182,10 +182,6 @@ export default {
     }
   },
   methods: {
-    keyupEnter() {
-      this.$emit('query', this.form)
-    },
-
     init({ value = this.form, conf = this.conf }) {
       // 设置css变量
       this.initCss()
@@ -202,13 +198,16 @@ export default {
       const gutter = parseInt(this.gutter) || 0
 
       const mapping = {
-        '--gutter': `${parseInt(this.gutter) || 0}px`,
+        '--gutter': `${gutter}px`,
       }
 
-      Object.keys(mapping).forEach(key => {
-        
+      this.$nextTick(() => {
+        const el = this.$refs.refForm && this.$refs.refForm.$el
+  
+        Object.keys(mapping).forEach(key => {
+          el.style.setProperty(key, mapping[key])
+        })
       })
-
     },
 
     async initConfig(conf = [], value) {
@@ -309,12 +308,8 @@ export default {
     },
 
     handleChange(value, prop) {
-      this.emitFormData({ [prop]: value })
-    },
 
-    handleInputNumberChange(value, prop) {
-      value = isEmpty.includes(value) ? undefined : Number(value)
-
+      console.log('handleChange', value, prop)
       this.emitFormData({ [prop]: value })
     },
 
