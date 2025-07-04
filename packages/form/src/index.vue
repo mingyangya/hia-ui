@@ -35,7 +35,6 @@
             <slot :name="slotNamePrefix(c)" v-bind="{ item: c, form, emitData: emitFormData }"></slot>
 
             <slot :name="slotName(c)" v-bind="{ item: c, form, emitData: emitFormData }" ref="refFormItem">
-
               <template v-if="!isCustomComponent(c)">
                 <component :is="getFormItemComponent(c)"
                   v-bind="{ ...c, disabled: itemDisabled(c), readonly: itemReadonly(c), viewonly: itemViewonly(c) }"
@@ -45,7 +44,7 @@
 
               <template v-else>
                 <slot :name="`${c.type}-${c.prop}`"
-                  v-bind="{ itemDisabled, itemReadonly, itemViewonly, item: { ...c, disabled: itemDisabled(c), readonly: itemReadonly(c), viewonly: itemViewonly(c) }, form, emitData: emitFormData }">
+                  v-bind="{ itemDisabled, itemReadonly, itemViewonly, item: { ...c, disabled: itemDisabled(c), readonly: itemReadonly(c), viewonly: itemViewonly(c) }, form, emitData: emitFormData, handleChange }">
                 </slot>
               </template>
             </slot>

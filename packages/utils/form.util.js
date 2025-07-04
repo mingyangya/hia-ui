@@ -41,7 +41,6 @@ export const isEmpty = function (val) {
   return false;
 };
 
-
 export const valueEquals = (a, b) => {
   // see: https://stackoverflow.com/questions/3115982/how-to-check-if-two-arrays-are-equal-with-javascript
   if (a === b) return true;
@@ -54,7 +53,6 @@ export const valueEquals = (a, b) => {
   return true;
 };
 
-
 // 获取vue元素
 export const getVueElement = (ele) => {
   while (!ele['__vue__'] && ele != null) {
@@ -66,13 +64,12 @@ export const getVueElement = (ele) => {
 
 export const customDispatch = (vueEleRef, componentName, eventName, params) => {
   const thatRef = vueEleRef['$el'] ? vueEleRef : getVueElement(vueEleRef)
-
-  let parent =  thatRef.$parent || thatRef.$root;
+  let parent = thatRef || thatRef.$root;
   let name = parent.$options.componentName;
 
   while (parent && (!name || name !== componentName)) {
     parent = parent.$parent;
-    
+
     if (parent) {
       name = parent.$options.componentName;
     }
@@ -92,7 +89,6 @@ export const customValidateItem = (thatRef, type = 'change', val) => {
   console.log('thatRef', thatRef, `el.form.${type}`, value)
 
   customDispatch(thatRef, 'ElFormItem', `el.form.${type}`, value)
-  // customDispatch(thatRef, 'ElForm', `el.form.${type}`, value)
 }
 
 

@@ -10,6 +10,11 @@ import HiaCheckboxGroup from './checkboxGroup/index.js'
 
 import HiaForm from './form/index.js'
 
+export {
+  customDispatch,
+  customValidateItem
+} from './utils/index.js'
+
 const components = [
   HiaButton,
   HiaButtonGroup,
