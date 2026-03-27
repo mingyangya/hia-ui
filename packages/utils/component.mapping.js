@@ -23,7 +23,7 @@ export const getFormItemComponent = (c) => {
 
     // 文本框
     text: 'ElInput',
-    textarea: 'el-input',
+    textarea: 'ElInput',
     password: 'ElInput',
 
     // 数字输入框

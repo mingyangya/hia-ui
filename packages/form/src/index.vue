@@ -37,6 +37,7 @@
             <slot :name="slotName(c)" v-bind="{ item: c, form, emitData: emitFormData }" ref="refFormItem">
               <template v-if="!isCustomComponent(c)">
                 <component :is="getFormItemComponent(c)"
+                  v-model="form[c.prop]"
                   v-bind="{ ...c, disabled: itemDisabled(c), readonly: itemReadonly(c), viewonly: itemViewonly(c) }"
                   @input="val => handleChange(val, c.prop)" @change="val => handleChange(val, c.prop)" @update:value="val => handleChange(val, c.prop)" @keyup.enter.native="val => $emit('keyup-enter', val)">
                 </component>
@@ -169,15 +170,28 @@ export default {
       formRules: {},
       defaultCol: 24,
       config: [],
+      isInitializing: false
     }
   },
   watch: {
     valueOrConfChange: {
       handler: function (newV) {
-        this.init(newV)
+
+        console.log('=======', this.isInitializing)
+        
+        if (this.isInitializing) {
+          return
+        }
+        
+        this.isInitializing = true
+        this.$nextTick(() => {
+          console.log('warning-----------', newV, this.isInitializing)
+          this.init(newV)
+          this.isInitializing = false
+        })
       },
       immediate: true,
-      deep: true,
+      deep: true
     }
   },
   methods: {
@@ -200,12 +214,10 @@ export default {
         '--gutter': `${gutter}px`,
       }
 
-      this.$nextTick(() => {
-        const el = this.$refs.refForm && this.$refs.refForm.$el
-  
-        Object.keys(mapping).forEach(key => {
-          el.style.setProperty(key, mapping[key])
-        })
+      const el = this.$refs.refForm && this.$refs.refForm.$el
+
+      Object.keys(mapping).forEach(key => {
+        el.style.setProperty(key, mapping[key])
       })
     },
 
@@ -239,7 +251,7 @@ export default {
       // 为了修复避免动态设置form以及rules 导致的 form 触发change事件 从而触发validate事件，导致表单一开始，就检验必填项触发change eror提示问题。
       // 需要结合validateOnRuleChange: false, 来修复以上问题。
       // 详情：validateOnRuleChange @see https://element.eleme.io/#/zh-CN/component/form#form-attributes
-      //      https://github.com/ElemeFE/element/blob/dev/packages/form/src/form-item.vue
+      // https://github.com/ElemeFE/element/blob/dev/packages/form/src/form-item.vue
       this.$nextTick(() => {
         this.$set(this, 'formRules', formRules)
       })
@@ -281,7 +293,6 @@ export default {
           }
         }
       })
-
     },
 
     handleConf(conf) {
@@ -321,6 +332,8 @@ export default {
         ...this.form,
         ...data
       }
+
+      this.isInitializing = true
 
       this.$set(this, 'form', newData)
       this.$emit('update:value', newData)
@@ -396,6 +409,8 @@ export default {
           ele && ele.reset && ele.reset()
         })
       }
+
+      this.isInitializing = true
 
       this.$emit('update:value', this.form)
       this.$emit('change', this.form)
