@@ -75,7 +75,7 @@ export const getFormItemComponent = (c) => {
   console.log('type', type, newComponent)
 
   if (!newComponent) {
-    newComponent = render ? customRender : null
+    newComponent = render ? render : ''
   }
 
   console.log('使用组件：', newComponent)
