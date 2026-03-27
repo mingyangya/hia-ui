@@ -72,6 +72,8 @@ export const getFormItemComponent = (c) => {
 
   let newComponent = componentMap[type]
 
+  console.log('type', type, newComponent)
+
   if (!newComponent) {
     newComponent = render ? customRender : null
   }

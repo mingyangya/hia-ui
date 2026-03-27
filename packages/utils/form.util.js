@@ -75,8 +75,6 @@ export const customDispatch = (vueEleRef, componentName, eventName, params) => {
     }
   }
 
-  console.log('parent', parent, eventName)
-
   if (parent) {
     parent.$emit.apply(parent, [eventName].concat(params));
   }
@@ -85,8 +83,6 @@ export const customDispatch = (vueEleRef, componentName, eventName, params) => {
 // 自定义组件的检验
 export const customValidateItem = (thatRef, type = 'change', val) => {
   const value = Array.isArray(val) ? val : [val]
-
-  console.log('thatRef', thatRef, `el.form.${type}`, value)
 
   customDispatch(thatRef, 'ElFormItem', `el.form.${type}`, value)
 }

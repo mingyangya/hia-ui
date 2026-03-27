@@ -21,7 +21,7 @@ module.exports = {
     config.resolve.alias
       .set('@', resolve('examples'))
       .set('@components', resolve("examples/components"))
-      .set('@packages', resolve("examples/packages"))
+      .set('@packages', resolve("packages"))
 
     // 去掉 preload prefetch
     config.plugins.delete('preload')

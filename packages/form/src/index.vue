@@ -9,14 +9,14 @@
     class: ['el-form', 'el-form-' + size, 'form-custom-detail'],
     ...$attrs,
   }" @submit.native.prevent>
-    <componet :is="itemRowComponent" v-bind="{
+    <component :is="itemRowComponent" v-bind="{
       class: itemRowComponentClass,
       gutter
     }">
       <template v-for="(c, i) in config">
         <slot :name="colBeforeSlotName(c)" />
 
-        <componet v-if="itemShow(c)" :is="itemColComponent" ref="refFromContainer" v-bind="{
+        <component v-if="itemShow(c)" :is="itemColComponent" ref="refFromContainer" v-bind="{
           class: itemColComponentClass(c),
           span: c.col ? c.col : defaultCol
         }">
@@ -51,10 +51,10 @@
 
             <slot :name="slotNameSuffix(c)" v-bind="{ item: c, form, emitData: emitFormData }"></slot>
           </el-form-item>
-        </componet>
+        </component>
 
       </template>
-    </componet>
+    </component>
   </el-form>
 </template>
 

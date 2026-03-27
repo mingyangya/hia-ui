@@ -9,7 +9,6 @@
 export default {
   name: 'App',
   mounted() {
-    console.log('mounted', window)
   }
 }
 </script>

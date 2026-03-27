@@ -55,57 +55,57 @@ export default {
           rules: { required: true, message: '请输入', trigger: 'blur' },
           col: 12,
         },
-        // {
-        //   type: 'textarea',
-        //   prop: 'text',
-        //   label: 'textrea输入框',
-        //   rules: { required: true, message: '请输入', trigger: 'blur' },
-        //   col: 12,
-        // },
-        // {
-        //   type: 'radio',
-        //   prop: 'type',
-        //   label: 'radio组',
-        //   value: '1',
-        //   options: [
-        //     {
-        //       label: '选项1',
-        //       value: '1',
-        //     },
-        //     {
-        //       label: '选项2',
-        //       value: '2',
-        //     }
-        //   ],
-        //   rules: { required: true, message: '请选择', trigger: 'change' },
-        //   col: 8,
-        // },
-        // {
-        //   type: 'checkbox',
-        //   prop: 'checkbox1',
-        //   label: 'checkbox组',
-        //   // value: ['A'],
-        //   options: [
-        //     {
-        //       label: 'A',
-        //       value: 'A',
-        //     },
-        //     {
-        //       label: 'B',
-        //       value: 'B',
-        //     },
-        //     {
-        //       label: 'C',
-        //       value: 'C',
-        //     },
-        //     {
-        //       label: 'D',
-        //       value: 'D',
-        //     }
-        //   ],
-        //   rules: { required: true, message: '请选择', trigger: 'change' },
-        //   col: 20,
-        // },
+         {
+           type: 'textarea',
+           prop: 'text',
+           label: 'textrea输入框',
+           rules: { required: true, message: '请输入', trigger: 'blur' },
+           col: 12,
+         },
+         {
+           type: 'radio',
+           prop: 'type',
+           label: 'radio组',
+           value: '1',
+           options: [
+             {
+               label: '选项1',
+               value: '1',
+             },
+             {
+               label: '选项2',
+               value: '2',
+             }
+           ],
+           rules: { required: true, message: '请选择', trigger: 'change' },
+           col: 8,
+         },
+         {
+           type: 'checkbox',
+           prop: 'checkbox1',
+           label: 'checkbox组',
+            value: ['A'],
+           options: [
+             {
+               label: 'A',
+               value: 'A',
+             },
+             {
+               label: 'B',
+               value: 'B',
+             },
+             {
+               label: 'C',
+               value: 'C',
+             },
+             {
+               label: 'D',
+               value: 'D',
+             }
+           ],
+           rules: { required: true, message: '请选择', trigger: 'change' },
+           col: 20,
+         },
         {
           type: 'CustomUpload',
           prop: 'file',

@@ -6,9 +6,9 @@ export default {
   icon: string().def(''),
   nativeType: string().def('button'),
   loading: bool(),
-  disabled:  bool(),
-  plain:  bool(),
-  autofocus:  bool(),
-  round:  bool(),
-  circle:  bool()
+  disabled: bool(),
+  plain: bool(),
+  autofocus: bool(),
+  round: bool(),
+  circle: bool()
 }

@@ -9,8 +9,7 @@
           size: btn.size || btnSize,
           disabled,
           icon
-        }" @click="handleUpload">{{
-          label }}</el-button>
+        }" @click="handleUpload">{{ label }}</el-button>
         <input type="file" hidden :disabled="disabled" @input="handleInput($event)" v-bind="{ multiple, accept }"
           ref="refInput" @click="handleInputClick" />
       </div>
@@ -83,7 +82,7 @@ export default {
       this.files = []
     },
 
-    handleInputClick() {
+    handleInputClick(event) {
       this.stopPropagation && event.stopPropagation()
     },
 
@@ -112,7 +111,7 @@ export default {
       }
     },
 
-    handleUpload() {
+    handleUpload(event) {
       this.stopPropagation && event.stopPropagation()
       this.$emit('handle-click')
       this.$refs.refInput.click()

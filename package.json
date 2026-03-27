@@ -17,7 +17,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lib": "rimraf lib  && vue-cli-service build --target lib --name hia-ui --dest lib packages/index.js",
+    "lib": "rimraf lib  && vue-cli-service build --target lib --name HiaUi --dest lib packages/index.js",
     "clean": "rimraf lib",
     "web": "npx http-server dist -p 9000",
     "lint": "vue-cli-service lint",
