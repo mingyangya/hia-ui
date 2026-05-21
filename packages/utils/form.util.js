@@ -6,7 +6,7 @@ export const isNull = (val) => {
   return typeof val === 'object' && val === null
 }
 
-export const isEmptyString = () => {
+export const isEmptyString = (val) => {
   return typeof val === 'string' && val === ''
 }
 
@@ -16,7 +16,7 @@ export const isEmpty = function (val) {
 
   if (typeof val === 'boolean') return false;
 
-  if (typeof val === 'number') return !val;
+  if (typeof val === 'number') return false;
 
   if (val instanceof Error) return val.message === '';
 

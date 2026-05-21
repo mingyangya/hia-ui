@@ -16,12 +16,18 @@
 
       <slot name="append"></slot>
     </div>
+    
+    <slot name="file-list" />
 
-    <slot name="file-list">
-      <div class="upload-file-list" v-if="showFileList">
-        <div class="upload-file-list-item" v-for="(file, index) in files" :key="index">{{ file.name }}</div>
+    <div v-if="!$slots['file-list'] && showFileList" class="file-list-default">
+      <div class="file-list-default" v-if="showFileList">
+        <div class="upload-file-list">
+          <div class="upload-file-list-item" v-for="(file, index) in files" :key="index">
+            {{ file.name }}
+          </div>
+        </div>
       </div>
-    </slot>
+    </div>
   </div>
 </template>
 

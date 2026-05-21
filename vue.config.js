@@ -1,4 +1,5 @@
 const path = require('path')
+const DemoHtmlPlugin = require('./scripts/DemoHtmlPlugin')
 
 function resolve(dir) {
   return path.join(__dirname, './', dir)
@@ -8,8 +9,12 @@ const isProduct = process.env.NODE_ENV === 'production'
 const isLib = process.argv.includes('--target') && process.argv.includes('lib')
 
 module.exports = {
+
+  productionSourceMap: false,    // 必须开启
+  css: { sourceMap: false },     // 样式也需要
+
   publicPath: isProduct && !isLib ? '/hia-ui/' : '/',
-  
+
   // 修改 src 目录 为 examples 目录
   pages: !isLib ? {
     index: {
@@ -32,8 +37,23 @@ module.exports = {
     config.plugins.delete('preload')
     config.plugins.delete('prefetch')
 
+
     // lib 构建配置
     if (isLib) {
+      config.module
+        .rule('vue')
+        .use('vue-loader')
+        .tap((options) => {
+          // 强制开启 preserveWhitespace，不删除节点
+          options.compilerOptions = {
+            preserveWhitespace: true,
+            whitespace: 'preserve', // Vue 2 额外配置
+          }
+          // 禁用库模式下的模板优化
+          options.transpileDependencies = true
+          return options
+        })
+
       config.entry('HiaUi').clear().add('./packages/index.js')
       config.output
         .library('HiaUi')
@@ -43,6 +63,8 @@ module.exports = {
   },
 
   configureWebpack: {
+
+    devtool: isProduct ? false : 'source-map',       // 强制生成完整 sourcemap
     externals: {
       './cptable': 'var cptable',
       // 对于 lib 构建，将 Vue 和 Element UI 作为外部依赖
@@ -62,7 +84,8 @@ module.exports = {
       })
     },
     plugins: [
-
+      // 生成 demo.html 文件的插件
+      ...(isLib ? [new DemoHtmlPlugin()] : [])
     ],
   },
 
@@ -74,7 +97,7 @@ module.exports = {
       ]
     }
   },
-  
+
   devServer: {
     headers: {
       'Access-Control-Allow-Origin': '*',

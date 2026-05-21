@@ -19,3 +19,5 @@ dist/
 # lib
 
 lib
+# 构建产物
+HiaUi.umd.js

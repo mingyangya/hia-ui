@@ -1,10 +1,3 @@
-
-// import customRender from "./custom.render"
-// import { HiaRadioGroup } from "@packages/radioGroup/index"
-// import { HiaRadioGroup } from "../radioGroup/index"
-
-// console.log('HiaRadioGroup', HiaRadioGroup)
-
 // 导出一个函数，用于获取表单项组件
 export const getFormItemComponent = (c) => {
   // 解构出传入的参数c中的type、component、render

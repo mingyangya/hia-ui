@@ -27,30 +27,25 @@
             viewonly: itemViewonly(c),
             position: labelPosition
           }">
-
             <template #label>
               <slot :name="slotNameLabel(c)" v-bind="{ item: c, form, emitData: emitFormData }"></slot>
             </template>
 
-            <slot :name="slotNamePrefix(c)" v-bind="{ item: c, form, emitData: emitFormData }"></slot>
-
-            <slot :name="slotName(c)" v-bind="{ item: c, form, emitData: emitFormData }" ref="refFormItem">
+            <slot :name="slotName(c)" v-bind="{ item: c, form, emitData: emitFormData }">
               <template v-if="!isCustomComponent(c)">
-                <component :is="getFormItemComponent(c)"
-                  v-model="form[c.prop]"
+                <component :is="getFormItemComponent(c)" v-model="form[c.prop]"
                   v-bind="{ ...c, disabled: itemDisabled(c), readonly: itemReadonly(c), viewonly: itemViewonly(c) }"
-                  @input="val => handleChange(val, c.prop)" @change="val => handleChange(val, c.prop)" @update:value="val => handleChange(val, c.prop)" @keyup.enter.native="val => $emit('keyup-enter', val)">
+                  @input="val => handleChange(val, c.prop)" @change="val => handleChange(val, c.prop)"
+                  @update:value="val => handleChange(val, c.prop)"
+                  @keyup.enter.native="val => $emit('keyup-enter', val)">
                 </component>
               </template>
-
               <template v-else>
                 <slot :name="`${c.type}-${c.prop}`"
                   v-bind="{ itemDisabled, itemReadonly, itemViewonly, item: { ...c, disabled: itemDisabled(c), readonly: itemReadonly(c), viewonly: itemViewonly(c) }, form, emitData: emitFormData, handleChange }">
                 </slot>
               </template>
             </slot>
-
-            <slot :name="slotNameSuffix(c)" v-bind="{ item: c, form, emitData: emitFormData }"></slot>
           </el-form-item>
         </component>
 
@@ -82,16 +77,6 @@ export default {
 
     slotNameLabel() {
       return (c) => isEmpty(c.type) ? `label-form-item-${c.prop}-custom` : `label-form-item-${c.prop}`
-    },
-
-    // 前缀
-    slotNamePrefix() {
-      return (c) => isEmpty(c.type) ? `prefix-form-item-${c.prop}-custom` : `prefix-form-item-${c.prop}`
-    },
-
-    // 后缀
-    slotNameSuffix() {
-      return (c) => isEmpty(c.type) ? `suffix-form-item-${c.prop}-custom` : `suffix-form-item-${c.prop}`
     },
 
     colBeforeSlotName() {
@@ -155,14 +140,14 @@ export default {
       return noop
     },
 
-    getFormItemComponent(c) {
-      return c => getFormItemComponent(c)
-    },
+    // getFormItemComponent(c) {
+    //   return getFormItemComponent(c)
+    // },
 
-    // 是否为自定义组件（使用默认插槽）
-    isCustomComponent() {
-      return c => isEmpty(this.getFormItemComponent(c))
-    }
+    // // 是否为自定义组件（使用默认插槽）
+    // isCustomComponent(c) {
+    //   return isEmpty(this.getFormItemComponent(c))
+    // }
   },
   data() {
     return {
@@ -178,11 +163,11 @@ export default {
       handler: function (newV) {
 
         console.log('=======', this.isInitializing)
-        
+
         if (this.isInitializing) {
           return
         }
-        
+
         this.isInitializing = true
         this.$nextTick(() => {
           console.log('warning-----------', newV, this.isInitializing)
@@ -226,7 +211,7 @@ export default {
       let formRules = { ...this.rules }
 
       form = conf.reduce((a, b) => {
-        a[b.prop] = isUndefined(a[b.prop]) ? b.value : a[b.prop]
+        a[b.prop] = isUndefined(a[b.prop]) ? (isUndefined(b.value) ? '' : b.value) : a[b.prop]
 
         const rules = b.rules
 
@@ -418,6 +403,18 @@ export default {
 
     customValidateItem(thatRef, type, val) {
       customValidateItem(thatRef, type, val)
+    },
+
+
+    getFormItemComponent(c) {
+      return getFormItemComponent(c)
+    },
+
+    // 是否为自定义组件（使用默认插槽）
+    isCustomComponent(c) {
+      const component = this.getFormItemComponent(c)
+      // 只有当组件为 null、undefined 或空字符串时，才认为是自定义组件
+      return component === null || component === undefined || component === ''
     }
   },
 }
